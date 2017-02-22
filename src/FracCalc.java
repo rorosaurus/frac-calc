@@ -14,18 +14,53 @@ public class FracCalc {
 
             if (input.equals("test")) runTests();
             else {
-                System.out.println("Your answer is: " + produceAnswer(input));
+                String answer = produceAnswer(input);
+
+                System.out.println(answer);
                 System.out.println(prompt);
             }
 
             input = scanner.nextLine();
         }
-        System.out.println("Goodbye.");
+        System.out.println("Goodbye!");
     }
 
     public static String produceAnswer(String input) {
+        // first separate the input into tokens separated by spaces
+        String[] inputs = input.split(" ");
 
-        return input;
+        // next check for error conditions
+        boolean inputValid = true;
+        if (inputs.length < 3  || inputs.length % 2 == 0) { // do we have the right amount of tokens?
+            inputValid = false;
+        }
+
+        for (int i = 0; i < inputs.length; i++) { // are those tokens what we expect them to be?
+            if (i % 2 == 0) {
+                inputValid = inputValid && isValidFrac(inputs[i]);
+            }
+            else inputValid = inputValid && isValidOperator(inputs[i]);
+        }
+
+        if (!inputValid) { // if anything was invalid, return an error
+            return "ERROR: Input is in an invalid format.";
+        }
+
+        // last do the computation (remember to check for divide by zero!)
+        // todo: check for div by zero
+        return ""; // todo: update return
+    }
+
+    public static String reduceFrac(String frac) {
+        return ""; // todo: implement
+    }
+
+    public static boolean isValidFrac(String frac) {
+        return true; // todo: implement
+    }
+
+    public static boolean isValidOperator(String op) {
+        return op.equals("*") || op.equals("/") || op.equals("+") || op.equals("-");
     }
 
     public static void runTests() {
